@@ -11,7 +11,13 @@ const dataRouter = require('./routes/data.routes');
 const config = require('./config/config');
 
 const app = express();
-app.use(cors());
+app.use((req, res, next)=>{
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "*")
+  res.setHeader("Access-Control-Allow-Headers", "*")
+  res.setHeader("Access-Control-Allow-Private-Network", true)
+  return next()
+})
 app.use(
   rateLimit({
     windowMs: config.rateLimitEach,
